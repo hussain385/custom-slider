@@ -9,9 +9,9 @@ import Button from "@/components/common/Button";
 import {useRouter} from "expo-router";
 
 const Introduction = () => {
-    const [index, setIndex] = useState<number>(0); // Track the current index
+    const [index, setIndex] = useState<number>(0);
     const scrollX = useRef(new Animated.Value(0)).current;
-    const flatListRef = useRef<FlatList>(null); // Ref for FlatList
+    const flatListRef = useRef<FlatList>(null);
     const router = useRouter()
 
     const handleOnScroll = (event: any) => {
@@ -32,7 +32,7 @@ const Introduction = () => {
     };
 
     const handleOnViewableItemsChanged = useRef(({viewableItems}: {viewableItems: any[]}) => {
-        setIndex(viewableItems[0].index); // Update the current index
+        setIndex(viewableItems[0].index);
     }).current;
 
     const viewAbilityConfig = useRef({
@@ -41,9 +41,8 @@ const Introduction = () => {
 
     const handleNext = () => {
          if (index === Slides.length - 1) {
-             router.push('/(Authentication)/(Login)/login')
+             console.log("")
          } else if (index < Slides.length - 1) {
-             // Scroll to the next slide
              flatListRef.current?.scrollToIndex({
                  animated: true,
                  index: index + 1,
@@ -70,11 +69,11 @@ const Introduction = () => {
                 onScroll={handleOnScroll}
                 onViewableItemsChanged={handleOnViewableItemsChanged}
                 viewabilityConfig={{
-                    itemVisiblePercentThreshold: 1, // High sensitivity
+                    itemVisiblePercentThreshold: 1,
                 }}
-                decelerationRate="fast" // Faster scroll sensitivity
-                snapToInterval={screen_width} // Ensures snapping aligns perfectly
-                scrollEventThrottle={16} // Increased touch responsiveness
+                decelerationRate="fast"
+                snapToInterval={screen_width}
+                scrollEventThrottle={16}
             />
 
             <View style={tw`absolute bottom-0 w-full flex-col items-center justify-center gap-6`}>
@@ -86,7 +85,7 @@ const Introduction = () => {
                 >
                     {index === Slides.length - 1 ? 'Finish' : 'Next'}
                 </Button>
-                <Button onPress={() => router.push('/(Authentication)/(Login)/login')} variant={'ghost'} style={tw`w-10/12 -mt-3.5`} textStyle={tw`opacity-45`}>
+                <Button variant={'ghost'} style={tw`w-10/12 -mt-3.5`} textStyle={tw`opacity-45`}>
                     Skip
                 </Button>
             </View>
